@@ -1,0 +1,112 @@
+/* Google Fonts*/
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poetsen+One&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-montserrat text-gray-700 bg-off-white;
+  }
+
+  h1 {
+    @apply font-poetsenOne;
+  }
+
+  h2 {
+    @apply text-4xl;
+  }
+}
+
+@layer components {
+  .landing-panel {
+    @apply w-28 border-l-2 border-gray-700 pt-[20px] pb-[10px] transition-all duration-700 ease-in-out hover:w-96 relative overflow-hidden;
+  }
+
+  .panel-div {
+    @apply h-16 pr-5 flex justify-end items-center text-[12px];
+  }
+
+  .panel-icon {
+    @apply pb-[20px] mx-[19px] h-[85px] w-[70px];
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* body {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+} */
+
+/* Landing Page CSS styles */
+
+.panel-image::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--image-url);
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity 0.7s ease-in-out;
+  z-index: -10;
+}
+
+.panel-image:hover::before {
+  opacity: 1;
+}
+
+.transition-font {
+  @apply transition-all duration-500 ease-in-out;
+}
+
+/* About us page styles */
+
+/* Rental page styles */
+.rental-panel {
+  background-image: var(--image-url);
+  background-size: cover;
+  background-position: center;
+}
+
+.rental-panel::before {
+  content: "";
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.2);
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  transition: background-color 0.3s ease;
+}
+
+.rental-panel:hover::before {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.rental-panel-margin {
+  margin-top: 10%;
+}
+
+.contact-us-bg {
+  background-image: var(--image-url);
+  background-size: cover;
+  background-position: center;
+  background-position-y: 75%;
+}
+
+/* Contact us page styles */
+.transition-max-height {
+  transition: max-height 0.3s ease-in-out;
+}
