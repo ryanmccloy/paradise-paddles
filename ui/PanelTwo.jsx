@@ -1,7 +1,6 @@
 import { useState } from "react";
-import Button from "./Button";
 
-function PanelTwo({ imageUrl, defaultIcon, hoverIcon }) {
+function PanelTwo({ imageUrl, defaultIcon, hoverIcon, handleSignUpClick }) {
   const [isHovered, setisHovered] = useState(false);
 
   const handleHover = function () {
@@ -16,7 +15,12 @@ function PanelTwo({ imageUrl, defaultIcon, hoverIcon }) {
       onMouseLeave={handleHover}
     >
       <div className=" panel-div">
-        <Button>Sign Up</Button>
+        <button
+          className="transition-all hover:font-semibold"
+          onClick={handleSignUpClick}
+        >
+          Sign Up
+        </button>
       </div>
       <img className="panel-icon" src={isHovered ? hoverIcon : defaultIcon} />
     </div>

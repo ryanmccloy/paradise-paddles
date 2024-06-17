@@ -2,7 +2,7 @@ import PanelOne from "./PanelOne";
 import PanelThree from "./PanelThree";
 import PanelTwo from "./PanelTwo";
 
-function LandingPanels() {
+function LandingPanels({ handleSignUpClick }) {
   return (
     <div className="flex flew-row ">
       <PanelOne
@@ -14,6 +14,7 @@ function LandingPanels() {
         imageUrl="../Img/kayak.jpg"
         defaultIcon="../Img/kayak.png"
         hoverIcon="../Img/kayak-white.png"
+        handleSignUpClick={handleSignUpClick}
       />
       <PanelThree
         imageUrl="../Img/surf.jpg"
