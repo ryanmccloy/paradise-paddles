@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LandingPanels from "../ui/LandingPanels";
 import LeftLanding from "../ui/LeftLanding";
 import SignUpModal from "../ui/SignUpModal";
@@ -9,6 +9,24 @@ function LandingPage() {
   const handleSignUpClick = function () {
     setShowSignUp((showModal) => !showModal);
   };
+
+  const handleKeyDown = function (e) {
+    if (e.key === "Escape") {
+      setShowSignUp(false);
+    }
+  };
+
+  useEffect(() => {
+    if (showSignUp) {
+      document.addEventListener("keydown", handleKeyDown);
+    } else {
+      document.removeEventListener("keydown", handleKeyDown);
+    }
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [showSignUp]);
 
   return (
     <div
