@@ -1,12 +1,15 @@
 import { Button, DatePicker, Form, Input, Select } from "antd";
+import { useNavigate } from "react-router-dom";
 
 function SignUpForm() {
   const [form] = Form.useForm();
 
   const { Option } = Select;
+  const navigate = useNavigate();
 
   const onFinish = function (values) {
     console.log("Received values of form", values);
+    navigate("account");
   };
 
   return (
