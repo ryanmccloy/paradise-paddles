@@ -5,7 +5,7 @@ import UpcomingBookings from "../ui/UpcomingBookings";
 
 function Account() {
   return (
-    <section className="px-[30px] pt-[20px] ">
+    <section className="px-[30px] pt-[20px] max-w-[1600px] min-w-screen mx-auto">
       <div className="flex gap-[30px] items-end">
         <Link to="/" className="inline-block">
           <Logo />
@@ -14,7 +14,7 @@ function Account() {
         <h2 className="">Hello NAME</h2>
       </div>
 
-      <div className="mt-[40px] flex flex-col gap-[30px]">
+      <div className="mt-[40px] flex flex-col gap-[40px]">
         <AccountSettings />
         <UpcomingBookings />
       </div>
