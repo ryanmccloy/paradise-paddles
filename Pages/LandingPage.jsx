@@ -42,7 +42,10 @@ function LandingPage() {
           className="fixed inset-0 bg-black bg-opacity-50  flex justify-center items-center "
           onClick={handleSignUpClick}
         >
-          <SignUpModal handleOverlayClick={(e) => e.stopPropagation()} />
+          <SignUpModal
+            handleOverlayClick={(e) => e.stopPropagation()}
+            handleSignUpClick={handleSignUpClick}
+          />
         </div>
       )}
     </div>

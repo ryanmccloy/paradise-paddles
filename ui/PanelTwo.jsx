@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useAuth } from "../contexts/AuthContext";
 
 function PanelTwo({ imageUrl, defaultIcon, hoverIcon, handleSignUpClick }) {
   const [isHovered, setisHovered] = useState(false);
+  const { user } = useAuth();
 
   const handleHover = function () {
     setisHovered((h) => !h);
@@ -15,12 +17,14 @@ function PanelTwo({ imageUrl, defaultIcon, hoverIcon, handleSignUpClick }) {
       onMouseLeave={handleHover}
     >
       <div className=" panel-div">
-        <button
-          className="transition-all hover:font-semibold"
-          onClick={handleSignUpClick}
-        >
-          Sign Up
-        </button>
+        {!user && (
+          <button
+            className="transition-all hover:font-semibold"
+            onClick={handleSignUpClick}
+          >
+            Sign Up
+          </button>
+        )}
       </div>
       <img className="panel-icon" src={isHovered ? hoverIcon : defaultIcon} />
     </div>

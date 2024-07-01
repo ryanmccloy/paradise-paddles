@@ -1,15 +1,50 @@
+import dayjs from "dayjs";
+import toast from "react-hot-toast";
 import { Button, DatePicker, Form, Input, Select } from "antd";
-import { useNavigate } from "react-router-dom";
 
-function SignUpForm() {
+import { useAuth } from "../contexts/AuthContext";
+
+function SignUpForm({ handleSignUpClick }) {
   const [form] = Form.useForm();
+  const { signUp } = useAuth();
 
   const { Option } = Select;
-  const navigate = useNavigate();
 
-  const onFinish = function (values) {
-    console.log("Received values of form", values);
-    navigate("account");
+  const onFinish = async function (values) {
+    try {
+      console.log("Received values of form", values);
+      const formattedDob = values.dob
+        ? dayjs(values.dob).format("YYYY-MM-DD")
+        : null;
+      console.log("Formatted Date of Birth:", formattedDob);
+
+      await signUp(
+        values.email,
+        values.password,
+        values.nationality,
+        formattedDob,
+        values.phoneNumber,
+        values.gender
+      );
+
+      handleSignUpClick();
+
+      toast.success("Account has been successfully created", {
+        duration: 4000,
+        position: "top-center",
+        icon: "👏",
+        iconTheme: {
+          primary: "#000",
+          secondary: "#fff",
+        },
+        ariaProps: {
+          role: "status",
+          "aria-live": "polite",
+        },
+      });
+    } catch (error) {
+      console.error("Error during sign up:", error);
+    }
   };
 
   return (
@@ -70,6 +105,7 @@ function SignUpForm() {
             required: true,
             message: "Please create a password!",
           },
+          { min: 6, message: "Password must be minimum 6 characters." },
         ]}
       >
         <Input.Password />

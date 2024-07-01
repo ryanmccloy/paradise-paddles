@@ -1,12 +1,12 @@
 import SignUpForm from "./SignUpForm";
 
-function SignUpModal({ handleOverlayClick }) {
+function SignUpModal({ handleOverlayClick, handleSignUpClick }) {
   return (
     <div
       className="bg-off-white rounded-md shadow-md p-[20px] w-[30%]"
       onClick={handleOverlayClick}
     >
-      <SignUpForm />
+      <SignUpForm handleSignUpClick={handleSignUpClick} />
     </div>
   );
 }

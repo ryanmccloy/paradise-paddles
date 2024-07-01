@@ -1,8 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Button from "./Button";
+import { useAuth } from "../contexts/AuthContext";
 
 function PanelThree({ imageUrl, defaultIcon, hoverIcon }) {
   const [isHovered, setisHovered] = useState(false);
+  const { user } = useAuth();
+
+  const navigate = useNavigate();
 
   const handleHover = function () {
     setisHovered((h) => !h);
@@ -16,7 +22,16 @@ function PanelThree({ imageUrl, defaultIcon, hoverIcon }) {
       onMouseLeave={handleHover}
     >
       <div className=" panel-div">
-        <Button type="full">Log In</Button>
+        {user ? (
+          <button
+            className="transition-all hover:font-semibold hover:text-off-white"
+            onClick={() => navigate("/account")}
+          >
+            My Account
+          </button>
+        ) : (
+          <Button type="full">Log In</Button>
+        )}
       </div>
       <img className="panel-icon" src={isHovered ? hoverIcon : defaultIcon} />
     </div>
