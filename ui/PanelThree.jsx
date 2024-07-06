@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "./Button";
 import { useAuth } from "../contexts/AuthContext";
 
-function PanelThree({ imageUrl, defaultIcon, hoverIcon }) {
+function PanelThree({ imageUrl, defaultIcon, hoverIcon, handleLogInClick }) {
   const [isHovered, setisHovered] = useState(false);
   const { user } = useAuth();
 
@@ -30,7 +30,9 @@ function PanelThree({ imageUrl, defaultIcon, hoverIcon }) {
             My Account
           </button>
         ) : (
-          <Button type="full">Log In</Button>
+          <Button type="full" handler={handleLogInClick}>
+            Log In
+          </Button>
         )}
       </div>
       <img className="panel-icon" src={isHovered ? hoverIcon : defaultIcon} />

@@ -5,10 +5,7 @@ import { useAuth } from "../contexts/AuthContext";
 
 function UpdateInfoForm({ closeModal }) {
   const [form] = Form.useForm();
-  const { user, userProfile } = useAuth();
-
-  console.log(user);
-  console.log(userProfile);
+  const { user, userProfile, updateUserProfile, updateAuthUser } = useAuth();
 
   const { Option } = Select;
 
@@ -18,9 +15,24 @@ function UpdateInfoForm({ closeModal }) {
       const formattedDob = values.dob
         ? dayjs(values.dob).format("YYYY-MM-DD")
         : null;
-      console.log("Formatted Date of Birth:", formattedDob);
 
-      // Updting function
+      // Update Info
+      const updates = {};
+      if (values.email && values.email !== user.email)
+        updates.email = values.email;
+      if (values.password) updates.password = values.password;
+
+      if (Object.keys(updates).length > 0) {
+        await updateAuthUser(updates);
+      }
+
+      await updateUserProfile(user.id, {
+        nationality: values.nationality,
+        dob: formattedDob,
+        phone_number: values.phoneNumber,
+        gender: values.gender,
+      });
+      //
 
       closeModal();
 
@@ -39,6 +51,7 @@ function UpdateInfoForm({ closeModal }) {
       });
     } catch (error) {
       console.error("Error during sign up:", error);
+      toast.error("Error updating information");
     }
   };
 
@@ -60,7 +73,7 @@ function UpdateInfoForm({ closeModal }) {
     >
       <Form.Item
         name="email"
-        label="Email"
+        label="Email (A confirmation email will be sent to your updated email address)"
         rules={[
           {
             type: "email",
@@ -103,13 +116,7 @@ function UpdateInfoForm({ closeModal }) {
         name="password"
         label="Update Password"
         hasFeedback
-        rules={[
-          {
-            // required: true,
-            message: "Please create a password!",
-          },
-          { min: 6, message: "Password must be minimum 6 characters." },
-        ]}
+        rules={[{ min: 6, message: "Password must be minimum 6 characters." }]}
       >
         <Input.Password />
       </Form.Item>
@@ -121,7 +128,6 @@ function UpdateInfoForm({ closeModal }) {
         hasFeedback
         rules={[
           {
-            // required: true,
             message: "Please confirm your password!",
           },
           ({ getFieldValue }) => ({

@@ -58,7 +58,7 @@ export function AuthProvider({ children }) {
     if (user) {
       await createUserProfile(user.id, nationality, dob, phoneNumber, gender);
       setUser(user);
-      console.log(user);
+      fetchUserProfile(user.id);
     } else if (session) {
       await createUserProfile(
         session.user.id,
@@ -101,9 +101,15 @@ export function AuthProvider({ children }) {
   };
 
   const signIn = async function (email, password) {
-    const { user, error } = await supabase.auth.signIn({ email, password });
-    if (error) throw error;
+    const response = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
+    const { user, error } = response.data;
+    if (error) throw new Error(error);
     setUser(user);
+    fetchUserProfile(user.id);
   };
 
   const fetchUserProfile = async function (userId) {
@@ -115,19 +121,40 @@ export function AuthProvider({ children }) {
         .single();
 
       if (error) {
-        console.error("Error fetching user profiles", error);
         throw new Error(error.message);
       }
 
       if (data) {
         setUserProfile(data);
       } else {
-        console.log("No user profile found for user ID:", userId);
         setUserProfile(null);
       }
     } catch (err) {
       console.error("Exception fetching user profile:", err);
     }
+  };
+
+  const updateUserProfile = async function (userId, updates) {
+    const { error } = await supabase
+      .from("user_profiles")
+      .update(updates)
+      .eq("user_id", userId);
+
+    if (error) {
+      throw new Error(error);
+    }
+
+    await fetchUserProfile(userId);
+  };
+
+  const updateAuthUser = async function (updates) {
+    const { data, error } = await supabase.auth.updateUser(updates);
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    setUser((prevUser) => ({ ...prevUser, ...data.user }));
   };
 
   const signOut = async function () {
@@ -138,7 +165,15 @@ export function AuthProvider({ children }) {
 
   return (
     <AuthContext.Provider
-      value={{ user, userProfile, signIn, signOut, signUp }}
+      value={{
+        user,
+        userProfile,
+        signIn,
+        signOut,
+        signUp,
+        updateUserProfile,
+        updateAuthUser,
+      }}
     >
       {children}
     </AuthContext.Provider>
