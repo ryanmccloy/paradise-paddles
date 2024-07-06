@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IoIosClose } from "react-icons/io";
+import UpdateInfoForm from "./UpdateInfoForm";
 
 function AccountSettings() {
   const [isOpen, setIsOpen] = useState(false);
@@ -29,7 +30,7 @@ function AccountSettings() {
         />
       )}
 
-      {isOpen && <p>lol</p>}
+      {isOpen && <UpdateInfoForm closeModal={() => setIsOpen(false)} />}
     </div>
   );
 }

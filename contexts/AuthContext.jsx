@@ -7,6 +7,7 @@ const AuthContext = createContext();
 // Provider Component
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [userProfile, setUserProfile] = useState(null);
 
   useEffect(() => {
     const checkSession = async () => {
@@ -28,6 +29,10 @@ export function AuthProvider({ children }) {
       authListener?.subscription?.unsubscribe();
     };
   }, []);
+
+  useEffect(() => {
+    if (user) fetchUserProfile(user.id);
+  }, [user]);
 
   // Sign Up function
   const signUp = async function (
@@ -101,13 +106,40 @@ export function AuthProvider({ children }) {
     setUser(user);
   };
 
+  const fetchUserProfile = async function (userId) {
+    try {
+      const { data, error } = await supabase
+        .from("user_profiles")
+        .select("*")
+        .eq("user_id", userId)
+        .single();
+
+      if (error) {
+        console.error("Error fetching user profiles", error);
+        throw new Error(error.message);
+      }
+
+      if (data) {
+        setUserProfile(data);
+      } else {
+        console.log("No user profile found for user ID:", userId);
+        setUserProfile(null);
+      }
+    } catch (err) {
+      console.error("Exception fetching user profile:", err);
+    }
+  };
+
   const signOut = async function () {
     await supabase.auth.signOut();
     setUser(null);
+    setUserProfile(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, signIn, signOut, signUp }}>
+    <AuthContext.Provider
+      value={{ user, userProfile, signIn, signOut, signUp }}
+    >
       {children}
     </AuthContext.Provider>
   );
