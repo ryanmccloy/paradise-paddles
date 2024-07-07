@@ -12,9 +12,9 @@ function RentalForm({ handleRentalClick }) {
 
   const [form] = Form.useForm();
   const rentalData = useRental();
-
   const { Option } = Select;
 
+  // Getting prices from the rental data in context
   function extractPrices(rentalData) {
     return rentalData.reduce((acc, item) => {
       const prices = item.prices.map((price) => {
@@ -34,8 +34,16 @@ function RentalForm({ handleRentalClick }) {
   }
 
   const rentalPrices = extractPrices(rentalData);
-  console.log(rentalPrices);
 
+  // Parsing the pick-up time to get the prices from the rentalPrices object above
+  const parsePickUpTime = (time) => {
+    if (time === "half-day-morning" || time === "half-day-afternoon") {
+      return "half-day";
+    }
+    return time;
+  };
+
+  // Submitting form function
   const onFinish = async function (values) {
     try {
       console.log("Received values of form", values);
@@ -65,8 +73,8 @@ function RentalForm({ handleRentalClick }) {
     }
   };
 
+  // Disabling dates in the DatePicker before the current date
   const disabledDate = (current) => {
-    // Can not select days before today
     return current && current < dayjs().startOf("day");
   };
 
@@ -170,10 +178,31 @@ function RentalForm({ handleRentalClick }) {
         </Select>
       </Form.Item>
 
-      <p className=" flex justify-center my-5">
-        Price: {`rentalPrices.${selectedRentalType}.${selectedLength}`} (Pay on
-        pickup)
-      </p>
+      {selectedLength &&
+        selectedPickUpTime !== "half-day-morning" &&
+        selectedPickUpTime !== "half-day-afternoon" &&
+        selectedPickUpTime !== "full-day" &&
+        selectedRentalType && (
+          <p className=" flex justify-center my-5">
+            Price: €{rentalPrices[selectedRentalType]?.[selectedLength]} (Pay on
+            pickup)
+          </p>
+        )}
+
+      {selectedRentalType &&
+        (selectedPickUpTime === "half-day-morning" ||
+          selectedPickUpTime === "half-day-afternoon" ||
+          selectedPickUpTime === "full-day") && (
+          <p className="flex justify-center my-5">
+            Price: €
+            {
+              rentalPrices[selectedRentalType]?.[
+                parsePickUpTime(selectedPickUpTime)
+              ]
+            }{" "}
+            (Pay on pickup)
+          </p>
+        )}
 
       <Form.Item>
         <div className="flex justify-center">
