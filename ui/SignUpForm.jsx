@@ -47,6 +47,11 @@ function SignUpForm({ handleSignUpClick }) {
     }
   };
 
+  const disabledDate = (current) => {
+    // Can not select dob after today
+    return current && current > dayjs().startOf("day");
+  };
+
   return (
     <Form
       form={form}
@@ -145,7 +150,7 @@ function SignUpForm({ handleSignUpClick }) {
           },
         ]}
       >
-        <DatePicker />
+        <DatePicker disabledDate={disabledDate} />
       </Form.Item>
 
       <Form.Item
