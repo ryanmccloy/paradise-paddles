@@ -3,12 +3,15 @@ import dayjs from "dayjs";
 import toast from "react-hot-toast";
 import { Button, DatePicker, Form, Select } from "antd";
 
+import { supabase } from "../utilities/supabase";
 import { useRental } from "../contexts/RentalContext";
+import { useAuth } from "../contexts/AuthContext";
 
 function RentalForm({ handleRentalClick }) {
   const [selectedPickUpTime, setSelectedPickUpTime] = useState(null);
   const [selectedLength, setSelectedLength] = useState(null);
   const [selectedRentalType, setSelectedRentalType] = useState(null);
+  const { user } = useAuth();
 
   const [form] = Form.useForm();
   const rentalData = useRental();
@@ -43,14 +46,38 @@ function RentalForm({ handleRentalClick }) {
     return time;
   };
 
+  // Check if rental is for a full day or half day
+  const isFullDayOrHalfDay = (time) => {
+    return (
+      time === "half-day-morning" ||
+      time === "half-day-afternoon" ||
+      time === "full-day"
+    );
+  };
+
+  const price = isFullDayOrHalfDay(selectedPickUpTime)
+    ? rentalPrices[selectedRentalType]?.[parsePickUpTime(selectedPickUpTime)]
+    : rentalPrices[selectedRentalType]?.[selectedLength];
+
   // Submitting form function
   const onFinish = async function (values) {
     try {
-      console.log("Received values of form", values);
       const formattedRentalDate = values.rentalDate
         ? dayjs(values.rentalDate).format("YYYY-MM-DD")
         : null;
-      console.log("Formatted Rental Date:", formattedRentalDate);
+
+      // Booking Object
+      const booking = {
+        user_id: user.id,
+        type: selectedRentalType,
+        date: formattedRentalDate,
+        time: selectedPickUpTime,
+        length: selectedLength,
+        price: price,
+      };
+
+      const { error } = await supabase.from("bookings").insert([booking]);
+      if (error) throw new Error(error);
 
       handleRentalClick();
 
@@ -184,8 +211,7 @@ function RentalForm({ handleRentalClick }) {
         selectedPickUpTime !== "full-day" &&
         selectedRentalType && (
           <p className=" flex justify-center my-5">
-            Price: €{rentalPrices[selectedRentalType]?.[selectedLength]} (Pay on
-            pickup)
+            Price: €{price} (Pay on pickup)
           </p>
         )}
 
@@ -194,13 +220,7 @@ function RentalForm({ handleRentalClick }) {
           selectedPickUpTime === "half-day-afternoon" ||
           selectedPickUpTime === "full-day") && (
           <p className="flex justify-center my-5">
-            Price: €
-            {
-              rentalPrices[selectedRentalType]?.[
-                parsePickUpTime(selectedPickUpTime)
-              ]
-            }{" "}
-            (Pay on pickup)
+            Price: €{price} (Pay on pickup)
           </p>
         )}
 
