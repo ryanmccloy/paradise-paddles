@@ -12,23 +12,23 @@ function BookingPanel() {
         <div>
           <h3>Pick Up</h3>
           <span>Date: </span>
-          <p className="inline">07/07/24</p>
+          <p className="inline font-semibold">07/07/24</p>
           <br />
           <span>Time: </span>
-          <p className="inline">11AM</p>
+          <p className="inline font-semibold">11AM</p>
         </div>
         <div>
           <h3>Return</h3>
           <span>Date: </span>
-          <p className="inline">07/07/24</p>
+          <p className="inline font-semibold">07/07/24</p>
           <br />
           <span>Time: </span>
-          <p className="inline">1PM</p>
+          <p className="inline font-semibold">1PM</p>
         </div>
       </div>
 
       <div className="relative z-20 text-center">
-        <h3>€30</h3>
+        <h3 className="font-semibold">€30</h3>
         <p>Pay on pick up</p>
       </div>
 
