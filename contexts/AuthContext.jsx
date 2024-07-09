@@ -180,6 +180,23 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const deleteBooking = async function (bookingId) {
+    try {
+      const { data, error } = await supabase
+        .from("bookings")
+        .delete()
+        .eq("id", bookingId);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data;
+    } catch (error) {
+      console.error("Error deleting booking:", error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -191,6 +208,7 @@ export function AuthProvider({ children }) {
         updateUserProfile,
         updateAuthUser,
         getBookings,
+        deleteBooking,
       }}
     >
       {children}

@@ -1,6 +1,16 @@
 import { Button } from "antd";
+import { useAuth } from "../contexts/AuthContext";
 
-function BookingPanel({ type, date, time, length, price }) {
+function BookingPanel({
+  type,
+  date,
+  time,
+  length,
+  price,
+  bookingId,
+  removeBooking,
+}) {
+  const { deleteBooking } = useAuth();
   const lengthNum = Number(length);
   const timeNum = Number(time);
 
@@ -57,6 +67,11 @@ function BookingPanel({ type, date, time, length, price }) {
     }
   };
 
+  const handleDelete = async function (bookingId) {
+    await deleteBooking(bookingId);
+    removeBooking(bookingId);
+  };
+
   return (
     <div
       className="booking-panel border-2 border-gray-700 rounded-md  h-[400px] text-off-white flex flex-col gap-[10%]"
@@ -93,6 +108,7 @@ function BookingPanel({ type, date, time, length, price }) {
       <Button
         type="primary"
         className="bg-gray-700 w-fit relative mx-auto border-off-white z-20 hover:!bg-off-white hover:border-2 hover:border-gray-700 hover:!text-gray-700"
+        onClick={() => handleDelete(bookingId)}
       >
         Cancel Booking
       </Button>

@@ -22,6 +22,12 @@ function Bookings() {
     getUserBookings();
   }, [user, getBookings]);
 
+  const removeBooking = (bookingId) => {
+    setBookings((prevBookings) =>
+      prevBookings.filter((booking) => booking.id !== bookingId)
+    );
+  };
+
   return (
     <>
       {bookings.length !== 0 ? (
@@ -34,6 +40,8 @@ function Bookings() {
               time={booking.time}
               type={booking.type}
               key={booking.id}
+              bookingId={booking.id}
+              removeBooking={removeBooking}
             />
           ))}
         </div>

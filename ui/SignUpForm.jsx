@@ -44,6 +44,7 @@ function SignUpForm({ handleSignUpClick }) {
       });
     } catch (error) {
       console.error("Error during sign up:", error);
+      toast.error("Error signing up");
     }
   };
 
