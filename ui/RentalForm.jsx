@@ -2,6 +2,7 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import toast from "react-hot-toast";
 import { Button, DatePicker, Form, Select } from "antd";
+import { useNavigate } from "react-router-dom";
 
 import { supabase } from "../utilities/supabase";
 import { useRental } from "../contexts/RentalContext";
@@ -12,9 +13,10 @@ function RentalForm({ handleRentalClick }) {
   const [selectedLength, setSelectedLength] = useState(null);
   const [selectedRentalType, setSelectedRentalType] = useState(null);
   const { user } = useAuth();
+  const rentalData = useRental();
 
   const [form] = Form.useForm();
-  const rentalData = useRental();
+  const navigate = useNavigate();
   const { Option } = Select;
 
   // Getting prices from the rental data in context
@@ -94,6 +96,8 @@ function RentalForm({ handleRentalClick }) {
           "aria-live": "polite",
         },
       });
+
+      navigate("/account");
     } catch (error) {
       console.error("Error booking rental:", error);
       toast.error("Error making reservation");

@@ -12,11 +12,9 @@ function SignUpForm({ handleSignUpClick }) {
 
   const onFinish = async function (values) {
     try {
-      console.log("Received values of form", values);
       const formattedDob = values.dob
         ? dayjs(values.dob).format("YYYY-MM-DD")
         : null;
-      console.log("Formatted Date of Birth:", formattedDob);
 
       await signUp(
         values.email,

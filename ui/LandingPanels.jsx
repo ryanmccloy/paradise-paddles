@@ -6,9 +6,9 @@ function LandingPanels({ handleSignUpClick, handleLogInClick }) {
   return (
     <div className="flex flew-row ">
       <PanelOne
-        imageUrl="../Img/SUP.jpg"
-        defaultIcon="../Img/paddle-surf.png"
-        hoverIcon="../Img/paddle-surf-white.png"
+        imageUrl="/Img/SUP.jpg"
+        defaultIcon="/Img/paddle-surf.png"
+        hoverIcon="/Img/paddle-surf-white.png"
       />
       <PanelTwo
         imageUrl="../Img/kayak.jpg"
