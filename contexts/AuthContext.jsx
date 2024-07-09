@@ -163,6 +163,23 @@ export function AuthProvider({ children }) {
     setUserProfile(null);
   };
 
+  const getBookings = async function (userId) {
+    try {
+      const { data, error } = await supabase
+        .from("bookings")
+        .select("*")
+        .eq("user_id", userId);
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      return data;
+    } catch (error) {
+      console.error("Error fetching bookings:", error);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -173,6 +190,7 @@ export function AuthProvider({ children }) {
         signUp,
         updateUserProfile,
         updateAuthUser,
+        getBookings,
       }}
     >
       {children}
