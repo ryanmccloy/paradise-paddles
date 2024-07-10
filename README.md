@@ -1,8 +1,8 @@
 # Paradise Paddles
 
-WORK IN PROGRESS - NOT YET COMPLETED
+You can view this at https://paradise-paddles-fe9fumxx2-ryan-mccloys-projects.vercel.app/
 
-Paradise Paddles is a web application that offers water activity rentals, including paddle boards and kayaks. Users can browse the website, see prices and availability, and reserve a rental. This project is built using Vite and React, styled with Tailwind CSS, with Supabase for storage and React Query for managing the remote state.
+Paradise Paddles is a web application that offers water activity rentals, including paddle boards and kayaks. Users can browse the website, see prices and FAQs, and reserve a rental. This project is built using Vite and React, styled with Tailwind CSS, with Supabase for storage and managing the remote state.
 
 ## Table of Contents
 
@@ -28,11 +28,9 @@ Paradise Paddles aims to provide a seamless and engaging experience for users lo
 
    - Display paddle boards and kayaks with descriptions and pricing.
 
-3. **Availability and Booking System**
+3. **Booking System**
 
-   - Calendar integration to show real-time availability.
    - Reservation form for selecting dates and times, and making reservations.
-   - Booking confirmation via email or SMS.
 
 4. **Pricing Information**
 
@@ -41,7 +39,7 @@ Paradise Paddles aims to provide a seamless and engaging experience for users lo
 5. **User Accounts**
 
    - Registration and login.
-   - Profile management for updating personal information, viewing past reservations, and tracking current bookings.
+   - Profile management for updating personal information, viewing reservations, and tracking current bookings.
 
 6. **Contact and Support**
 
@@ -53,10 +51,10 @@ Paradise Paddles aims to provide a seamless and engaging experience for users lo
    - Information about the business, mission, and team.
 
 8. **Additional Features**
-   - Mobile responsiveness.
-   - SEO optimization.
+   - Mobile responsiveness. (Work In Progress)
+   - SEO optimization. (Work In Progress)
    - Social media integration.
-   - Weather widget.
+   - Weather widget. (Work In Progress)
 
 ## Technologies
 
@@ -64,9 +62,10 @@ Paradise Paddles aims to provide a seamless and engaging experience for users lo
 - **React**: JavaScript library for building user interfaces.
 - **Tailwind CSS**: Utility-first CSS framework for styling.
 - **Supabase**: Backend services and storage.
-- **React Query**: Library for fetching, caching, and updating server state.
 
 ## Installation
+
+You can view this at https://paradise-paddles-fe9fumxx2-ryan-mccloys-projects.vercel.app/
 
 ### Prerequisites
 
