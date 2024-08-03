@@ -2,7 +2,7 @@
 
 You can view this at https://paradise-paddles-fe9fumxx2-ryan-mccloys-projects.vercel.app/
 
-Paradise Paddles is a web application that offers water activity rentals, including paddle boards and kayaks. Users can browse the website, see prices and FAQs, and reserve a rental. This project is built using Vite and React, styled with Tailwind CSS, with Supabase for storage and managing the remote state.
+Paradise Paddles is a web application that offers water activity rentals, including paddle boards and kayaks. Users can browse the website, see prices and FAQs, and reserve a rental. This project is built using Vite and React, styled with Tailwind CSS, with Supabase for storage and managing the remote state. This webpage is currently only styled for desktop and iPad.
 
 ## Table of Contents
 
