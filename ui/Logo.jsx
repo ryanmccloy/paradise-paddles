@@ -3,7 +3,7 @@ function Logo() {
     <img
       src="../Img/paradise-paddles.svg"
       alt="Paradise Paddles Logo"
-      className="w-16 h-16"
+      className="w-12 h-12 md:w-16 md:h-16"
     />
   );
 }

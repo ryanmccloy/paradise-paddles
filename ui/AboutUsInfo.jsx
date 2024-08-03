@@ -2,10 +2,10 @@ import SocialIcons from "./SocialIcons";
 
 function AboutUsInfo() {
   return (
-    <div className=" w-2/5 text-off-white flex flex-col gap-5 self-start mt-[15vh] ">
+    <div className=" w-2/5 text-off-white flex flex-col gap-5 self-start mt-[10vh] xl:mt-[15vh] ">
       <SocialIcons />
       <h2>About Us</h2>
-      <p className="text-sm leading-[19px]">
+      <p className="text-xs xl:text-sm leading-[19px]">
         Welcome to Paradise Paddles, your premier destination for water sports
         adventures across mainland Spain and the picturesque island of Mallorca.
         We specialize in providing top-quality Stand-Up Paddleboards (SUP),

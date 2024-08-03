@@ -2,7 +2,7 @@ import { Link } from "react-scroll";
 
 function NavBarLinks() {
   return (
-    <ul className="flex flex-row gap-[35px] text-[12px]">
+    <ul className="md:gap-[20px] text-[10px] flex flex-row xl:gap-[35px] xl:text-[12px]">
       <li className="min-w-[60px]">
         <Link
           to="about-us"

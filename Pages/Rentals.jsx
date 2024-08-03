@@ -74,7 +74,7 @@ function Rentals() {
     <RentalProvider>
       <section
         id="rentals"
-        className={`h-screen min-h-[800px] max-h-[990px] min-w-screen max-w-[1800px] mx-auto flex flex-col gap-[5vh] items-center  py-[10vh] ${
+        className={`h-screen min-h-[800px] max-h-[990px] min-w-screen max-w-[1800px] mx-auto flex flex-col gap-[5vh] items-center py-[10vh] ${
           showSignUp || showRental ? "backdrop-blur-md" : ""
         }`}
       >
